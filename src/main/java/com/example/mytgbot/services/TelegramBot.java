@@ -183,36 +183,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(valueOf(chatId));
             sendMessage.setText(response);
-            String sourceLanguage = "ru";
-            String targetLanguage = "en";
-            try{
-
-                String url = "https://translate.googleapis.com/translate_a/single" +
-                        "?client=gtx" +
-                        "&sl=" + sourceLanguage +
-                        "&tl=" + targetLanguage +
-                        "&dt=t&q=" + URLEncoder.encode(response, StandardCharsets.UTF_8);
-
-
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                con.setRequestMethod("GET");
-                int responseCode = con.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuilder responsed = new StringBuilder();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        responsed.append(inputLine);
-                    }
-                    in.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
             execute(sendMessage);
         }catch (Exception e){
             e.printStackTrace();
